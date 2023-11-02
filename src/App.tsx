@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
+import CheckBox from "./components/CheckBox";
 
 interface CarModel {
   id: number;
@@ -49,7 +50,7 @@ const futureCars: CarModel[] = [
     name: "Mazda",
   },
 ];
-
+//sort the cars bt id
 function getSortedCars(cars: CarModel[]): CarModel[] {
   return cars.sort((a, b) => a.id - b.id);
 }
@@ -59,15 +60,15 @@ function App() {
   const [selectedCars, setSelectedCars] = useState<CarModel[]>([]);
   const [isShow, setIsShow] = useState<Boolean>(false);
 
+  //apply the changes to the checkBox
   const handleApplyChanges = () => {
     const updatedCars = cars.filter((car) => !selectedCars.includes(car));
     const sortedCars = getSortedCars(selectedCars).concat(
       getSortedCars(updatedCars)
     );
-
     setCars(sortedCars);
   };
-
+  //set the initial state for checkBox
   const initialState = () => {
     // Get the initial selected cars.
     let initialSelectedCars: CarModel[] = [];
@@ -90,15 +91,15 @@ function App() {
     setCars(initialSelectedCars.concat(updatedCars));
   };
 
+  //reset the checkBox and return the default state
   const handleReset = () => {
-    // setCars([...futureCars]);
-    // setSelectedCars([]);
-
     initialState();
   };
 
+  //detect change after checkbox
   const handleCheckBox = (e: any, car: CarModel) => {
     const isChecked = e.target.checked;
+    //show button apply changes
     setIsShow(true);
 
     if (isChecked) {
@@ -109,7 +110,7 @@ function App() {
       );
     }
   };
-
+  // set the initial state after render
   useEffect(() => {
     initialState();
   }, []);
@@ -141,22 +142,12 @@ function App() {
           </div>
           <div className="car__content">
             {cars.map((car) => (
-              <div className="car__content__row" key={car.id}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      className="car__content__row__carName"
-                      checked={selectedCars.some(
-                        (selectedCar) => selectedCar.id === car.id
-                      )}
-                      id={car.id.toString()}
-                    />
-                  }
-                  label={car.name}
-                  onClick={(e) => handleCheckBox(e, car)}
-                />
-                <span className="car__content__row__carId">{car.id}</span>
-              </div>
+              <CheckBox
+                key={car.id}
+                car={car}
+                selectedCars={selectedCars}
+                handleCheckBox={handleCheckBox}
+              />
             ))}
           </div>
         </div>

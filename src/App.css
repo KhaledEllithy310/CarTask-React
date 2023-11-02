@@ -52,7 +52,7 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  background-color: #eee;
+  background-color: #e7e7e7;
   padding: 10px 20px;
   text-align: center;
   border-radius: 6px 6px 0 0;
@@ -71,7 +71,7 @@
   text-align: right;
 }
 .car__header__btn {
-  background-color: black;
+  background-color: #28313f;
   color: white;
   font-weight: 600;
   font-size: 16px;
@@ -110,10 +110,12 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 8px;
 }
 
 .car__content__row__carName {
   color: black !important;
+  padding-right: 20px !important;
 }
 
 .car__content__row__carName:hover {
