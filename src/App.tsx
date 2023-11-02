@@ -127,7 +127,7 @@ function App() {
                 Reset
               </button>
             </div>
-            <h4>Future Cars</h4>
+            <h3 className="car__header__title">Future Cars</h3>
             <div>
               <button
                 className={`car__header__btn capitalize ${
