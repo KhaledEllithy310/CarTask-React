@@ -68,25 +68,7 @@ function App() {
     setCars(sortedCars);
   };
 
-  const handleReset = () => {
-    setCars([...futureCars]);
-    setSelectedCars([]);
-  };
-
-  const handleCheckBox = (e: any, car: CarModel) => {
-    const isChecked = e.target.checked;
-    setIsShow(true);
-
-    if (isChecked) {
-      setSelectedCars((prevSelectedCars) => [...prevSelectedCars, car]);
-    } else {
-      setSelectedCars((prevSelectedCars) =>
-        prevSelectedCars.filter((selectedCar) => selectedCar.id !== car.id)
-      );
-    }
-  };
-
-  useEffect(() => {
+  const initialState = () => {
     // Get the initial selected cars.
     let initialSelectedCars: CarModel[] = [];
     cars.forEach((car) => {
@@ -106,6 +88,30 @@ function App() {
 
     // Set the cars state variable.
     setCars(initialSelectedCars.concat(updatedCars));
+  };
+
+  const handleReset = () => {
+    // setCars([...futureCars]);
+    // setSelectedCars([]);
+
+    initialState();
+  };
+
+  const handleCheckBox = (e: any, car: CarModel) => {
+    const isChecked = e.target.checked;
+    setIsShow(true);
+
+    if (isChecked) {
+      setSelectedCars((prevSelectedCars) => [...prevSelectedCars, car]);
+    } else {
+      setSelectedCars((prevSelectedCars) =>
+        prevSelectedCars.filter((selectedCar) => selectedCar.id !== car.id)
+      );
+    }
+  };
+
+  useEffect(() => {
+    initialState();
   }, []);
 
   return (
